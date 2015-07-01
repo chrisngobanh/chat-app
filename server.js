@@ -46,7 +46,6 @@ var numOfUsers = 0;
 
 app.get('/', function(req, res) {
   if (req.cookies.user) {
-    io.emit('new user', req.cookies.user);
     res.render('index.html');
   } else {
     var loginUrl = 'https://github.com/login/oauth/authorize' + '?' +
@@ -111,25 +110,28 @@ app.get('/github', function(req, res) {
 
 });
 
-app.post('/createmessage', function(req, res) {
-  var data = {
-    message: req.body.message,
-    user: req.cookies.user
-  };
-  io.emit('new message', data);
-  res.status(200).send();
+io.use(function(socket, next) {
+  var parser = cookieParser.apply(null, arguments);
+  parser(socket.request, null, next);
 });
 
 io.on('connection', function(socket) {
-  //socket.emit('user connected', onlineUsers);
+  io.emit('user connected', socket.request.cookies.user);
+
   numOfUsers++;
   io.emit('num of users', numOfUsers);
-  socket.on('new message', function(message) {
 
-    io.emit('message', message);
+  socket.on('new message', function(message) {
+    var data = {
+      message: message,
+      user: socket.request.cookies.user
+    };
+    io.emit('message', data);
   });
 
   socket.on('disconnect', function() {
+
+    io.emit('user disconnected', socket.request.cookies.user);
     numOfUsers--;
     io.emit('num of users', numOfUsers);
   });

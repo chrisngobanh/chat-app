@@ -21,17 +21,12 @@ $(window).keydown(function(event) {
         return;
       }
       $('.messageInput').val('');
-      //socket.emit('new message', message);
-      $.ajax({
-        url : '/createmessage',
-        type: 'POST',
-        data: 'message=' + message
-      });
-    //}
+      socket.emit('new message', message);
+
   }
 });
 
-socket.on('new message', function(data) {
+socket.on('message', function(data) {
 
   var elClass = (even ? 'ui segment' : 'ui segment inverted');
   even = !even;
@@ -42,7 +37,7 @@ socket.on('new message', function(data) {
   $('.messages').append($el);
 });
 
-socket.on('new user', function(user) {
+socket.on('user connected', function(user) {
   var elClass = (even ? 'ui segment' : 'ui segment inverted');
   even = !even;
 
@@ -52,11 +47,22 @@ socket.on('new user', function(user) {
   $('.messages').append($el);
 });
 
+socket.on('user disconnected', function(user) {
+  var elClass = (even ? 'ui segment' : 'ui segment inverted');
+  even = !even;
+
+  var $el = $('<li class="' + elClass + '"><a>Server: </a><a href="https://github.com/'+ user.username +'">'+ user.name +':</a> has left the chat.</li>');
+
+  $el.hide().fadeIn(200);
+  $('.messages').append($el);
+});
+
+
 socket.on('num of users', function(num) {
   var elClass = (even ? 'ui segment' : 'ui segment inverted');
   even = !even;
 
-  var $el
+  var $el;
     if (num !== 1) {
       $el = $('<li class="' + elClass + '"><a>Server: </a> There are now '+ num +' users in the chat!</li>');
     } else {
