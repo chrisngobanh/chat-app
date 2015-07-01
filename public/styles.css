@@ -1,0 +1,85 @@
+html {
+    height: 100%;
+}
+
+body {
+  height: 100%;
+  background-color: black;
+  color: white;
+  border-style: solid;
+  border-color: #fff;
+}
+
+.wrapper {
+  height: 100%;
+  padding-bottom: 4em;
+}
+
+.container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  text-align: center;
+}
+
+ul {
+  list-style: none;
+  word-wrap: break-word;
+}
+
+.messages {
+  height: 100%;
+  overflow-y: scroll;
+  padding: 0.25em 0.5em;
+  margin: 0.25em 0;
+}
+/*
+footer, .push {
+  height: -4em;
+}
+
+footer {
+  border-top: 0.25em;
+  border-style: solid;
+  border-color: #fff;
+  height: 100%;
+}
+*/
+
+footer {
+  border: solid;
+  bottom: 0;
+  height: 4em;
+  left: 0;
+  outline: none;
+  padding-left: 10px;
+  position: absolute;
+  right: 0;
+  width: 100%;
+}
+
+
+.ui.transparent.input input {
+  padding: 1.25em 1em !important;
+}
+
+.ui.inverted.button {
+  margin: 0em -0.25em !important;
+}
+
+.ui.inverted.segment {
+  background-color: black !important;
+}
+
+.ui.segment {
+  color: black;
+  margin: 0 !important;
+  padding: 1em;
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+.input {
+  background-color: transparent !important;
+}

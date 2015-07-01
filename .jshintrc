@@ -1,0 +1,13 @@
+{
+  "indent": 2,
+  "undef": true,
+  "quotmark": "single",
+  "maxlen": 80,
+  "trailing": true,
+  "curly": true,
+  "predef": ["console", "module", "require", "__dirname", "process", "document",
+  "$", "window", "setInterval"],
+  "globalstrict": true,
+  "laxcomma" : true,
+  "multistr" : true
+}
