@@ -114,7 +114,7 @@ app.get('/github', function(req, res) {
 app.post('/createmessage', function(req, res) {
   var data = {
     message: req.body.message,
-    user: req.cookies.user || {name: 'Chris Banh', username: 'chrisngobanh'}
+    user: req.cookies.user
   };
   io.emit('new message', data);
   res.status(200).send();
