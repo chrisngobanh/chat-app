@@ -42,13 +42,15 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'));
 app.use(cookieParser('https://youtu.be/g3p2TZ5q9to'));
 
+var numOfUsers = 0;
+
 app.get('/', function(req, res) {
   if (req.cookies.user) {
+    io.emit('new user', req.cookies.user);
     res.render('index.html');
   } else {
     var loginUrl = 'https://github.com/login/oauth/authorize' + '?' +
                 qs.stringify({client_id: CLIENT_ID});
-
     res.render('login.html', {loginUrl: loginUrl});
   }
 
@@ -118,17 +120,18 @@ app.post('/createmessage', function(req, res) {
   res.status(200).send();
 });
 
-var onlineUsers = {};
-
 io.on('connection', function(socket) {
   //socket.emit('user connected', onlineUsers);
-  // io.emit('new user has connect')
+  numOfUsers++;
+  io.emit('num of users', numOfUsers);
   socket.on('new message', function(message) {
+
     io.emit('message', message);
   });
 
   socket.on('disconnect', function() {
-
+    numOfUsers--;
+    io.emit('num of users', numOfUsers);
   });
 });
 

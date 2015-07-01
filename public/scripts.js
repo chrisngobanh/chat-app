@@ -34,10 +34,35 @@ $(window).keydown(function(event) {
 socket.on('new message', function(data) {
 
   var elClass = (even ? 'ui segment' : 'ui segment inverted');
+  even = !even;
 
   var $el = $('<li class="' + elClass + '"><a href="https://github.com/'+ data.user.username +'">'+ data.user.name +':</a> '+ data.message +'</li>');
 
   $el.hide().fadeIn(200);
   $('.messages').append($el);
+});
+
+socket.on('new user', function(user) {
+  var elClass = (even ? 'ui segment' : 'ui segment inverted');
   even = !even;
+
+  var $el = $('<li class="' + elClass + '"><a>Server: </a><a href="https://github.com/'+ user.username +'">'+ user.name +':</a> has joined the chat!</li>');
+
+  $el.hide().fadeIn(200);
+  $('.messages').append($el);
+});
+
+socket.on('num of users', function(num) {
+  var elClass = (even ? 'ui segment' : 'ui segment inverted');
+  even = !even;
+
+  var $el
+    if (num !== 1) {
+      $el = $('<li class="' + elClass + '"><a>Server: </a> There are now '+ num +' users in the chat!</li>');
+    } else {
+      $el = $('<li class="' + elClass + '"><a>Server: </a> There is now 1 user in the chat!</li>');
+    }
+
+  $el.hide().fadeIn(200);
+  $('.messages').append($el);
 });
