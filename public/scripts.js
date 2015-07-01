@@ -35,6 +35,7 @@ socket.on('message', function(data) {
 
   $el.hide().fadeIn(200);
   $('.messages').append($el);
+  $('.messages').scrollTop($('.messages')[0].scrollHeight);
 });
 
 socket.on('user connected', function(user) {
@@ -45,6 +46,7 @@ socket.on('user connected', function(user) {
 
   $el.hide().fadeIn(200);
   $('.messages').append($el);
+  $('.messages').scrollTop($('.messages')[0].scrollHeight);
 });
 
 socket.on('user disconnected', function(user) {
@@ -55,6 +57,7 @@ socket.on('user disconnected', function(user) {
 
   $el.hide().fadeIn(200);
   $('.messages').append($el);
+  $('.messages').scrollTop($('.messages')[0].scrollHeight);
 });
 
 
@@ -71,4 +74,5 @@ socket.on('num of users', function(num) {
 
   $el.hide().fadeIn(200);
   $('.messages').append($el);
+  $('.messages').scrollTop($('.messages')[0].scrollHeight);
 });
